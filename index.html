@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>AR con MindAR</title>
+
+  <!-- A-Frame y MindAR -->
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    body { margin: 0; overflow: hidden; }
+    #ar-container { width: 100vw; height: 100vh; }
+  </style>
+</head>
+
+<body>
+  <div id="ar-container">
+    <a-scene
+      mindar-image="imageTargetSrc: targets/targets.mind"
+      color-space="sRGB"
+      embedded
+      renderer="colorManagement: true; physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: true"
+    >
+      <!-- Cámara para AR -->
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <!-- Modelos 3D alojados en Google Drive -->
+      <a-assets>
+        <a-asset-item
+          id="modelo1"
+          src="https://drive.google.com/uc?export=download&id=1BVNimGMitcoKUpgG6mMWOtkjxC0hCyHa">
+        </a-asset-item>
+
+        <a-asset-item
+          id="modelo2"
+          src="https://drive.google.com/uc?export=download&id=1GoUJQWtHepbz0DbcI1jBprsOWgO4v3WI">
+        </a-asset-item>
+      </a-assets>
+
+      <!-- Primer marcador (Hiro) -->
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-gltf-model
+          src="#modelo1"
+          scale="0.5 0.5 0.5"
+          position="0 0 0">
+        </a-gltf-model>
+      </a-entity>
+
+      <!-- Segundo marcador (Kanji) -->
+      <a-entity mindar-image-target="targetIndex: 1">
+        <a-gltf-model
+          src="#modelo2"
+          scale="0.5 0.5 0.5"
+          position="0 0 0">
+        </a-gltf-model>
+      </a-entity>
+
+    </a-scene>
+  </div>
+</body>
+</html>
